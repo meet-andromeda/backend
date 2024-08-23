@@ -1,0 +1,27 @@
+name: Sync main
+on:
+  push:
+    branches:
+      - production
+
+jobs:
+  sync-branches:
+    runs-on: ubuntu-latest
+    name: Sync branches
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: main
+      - name: Reset branch
+        run: |
+          git fetch origin production:production
+          git reset --hard production
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{secrets.GITHUB_TOKEN}}
+          title: "sync: production to main"
+          body: "sync: New code has just landed in production so let's bring main up to speed!"
+          branch: chore/sync-main-with-production
+          delete-branch: true

@@ -1,0 +1,16 @@
+name: Deploy
+
+on:
+  push:
+    branches: [ main ]
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  call_deploy:
+    uses: ./.github/workflows/deploy-template.yml
+    with:
+      environment: Production
+      deploy-command: npm run deploy
+      branch-name: production
+    secrets: inherit
