@@ -1,0 +1,20 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Meet andromeda backend orchestrates different apps and functions",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint './**/*.{js,ts}'",
+    "build": "tsc --build",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy": "serverless compose deploy",
+    "remove": "serverless compose remove"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "serverless": "^4.2.3",
+    "serverless-compose": "^2.4.0"
+  }
+}
