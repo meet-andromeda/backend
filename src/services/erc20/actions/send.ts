@@ -14,7 +14,7 @@ interface SendParams {
  * Sends {tokenAmountInWei} tokens of {tokenAddress} to {destinationAddress} using the {walletPrivateKey}.
  *
  * @param walletPrivateKey     Private key of the wallet sending the tokens
- * @param web3Provider         Provider (such as Infura) used to send the transaction
+ * @param web3Provider         Provider (such as alchemy) used to send the transaction
  * @param destinationAddress   Recipient of the tokens
  * @param tokenAddress         Address of the token to be sent
  * @param tokenAmountInWei     Amount in wei as string

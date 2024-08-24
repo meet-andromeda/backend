@@ -11,10 +11,10 @@ interface LoadValuesFromSsmParams {
 }
 
 const allParams: Record<EnvVariableName, string> = {
-  [envVariablesNames.walletPrivateKey]: '/backend/wallet-private-key',
-  [envVariablesNames.alchemyApiKeyEthereum]: '/backend/alchemy-api-key-ethereum',
   [envVariablesNames.alchemyApiKeyPolygon]: '/backend/alchemy-api-key-polygon',
-  [envVariablesNames.infuraProjectId]: '/backend/infura-project-id',
+  [envVariablesNames.alchemyApiKeyEthereum]: '/backend/alchemy-api-key-ethereum',
+  [envVariablesNames.circleApiKey]: '/backend/circle-api-key',
+  [envVariablesNames.circleEntitySecret]: '/backend/circle-entity-secret',
 } as const;
 
 function loadValuesFromSsm({
