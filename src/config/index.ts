@@ -1,4 +1,3 @@
-import { domains } from './domains';
 import commonEsbuildConfig from './common-esbuild-config';
 import stage, { AllowedStage } from './stage';
 import envVariablesNames from './env-variable-names';
@@ -43,7 +42,6 @@ const domain = {
 const config = {
   region,
   stage,
-  domains,
   logger,
   serviceNames,
   commonEsbuildConfig,
