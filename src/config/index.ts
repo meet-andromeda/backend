@@ -30,6 +30,7 @@ const serviceNames = {
   alchemy: 'alchemy',
   customSmartContract: 'custom-smart-contract',
   discord: 'discord',
+  workflows: 'workflows',
 };
 
 const domain = {
