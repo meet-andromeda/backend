@@ -38,6 +38,8 @@ export const main = middy(async (
     pathParameters,
   } = event;
 
+  console.log('HANDLER');
+
   const userInformation = await getOrCreate({
     userAddress: pathParameters.userAddress,
     circleApiKey: context[circleApiKey],
