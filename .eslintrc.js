@@ -52,7 +52,7 @@ module.exports = {
     '@typescript-eslint/no-loss-of-precision': 'error',
     'space-before-blocks': 'error',
     '@typescript-eslint/space-before-blocks': 'error',
-    'no-console': 'error',
+    'no-console': 'warn',
   },
   overrides: [
     {

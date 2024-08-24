@@ -5,7 +5,7 @@ const {
   stage,
 } = generalConfig;
 const selectedDomain = generalConfig.domain;
-const serviceName = generalConfig.serviceNames.alchemy;
+const serviceName = generalConfig.serviceNames.tenderly;
 
 const config = {
   region,
