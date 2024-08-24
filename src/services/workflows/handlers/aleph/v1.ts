@@ -21,7 +21,8 @@ const v1 = {
     },
     {
       // Discord
-      url: '',
+      title: '',
+      url: 'https://discord.com/api/webhooks/1277046823818756166/H1btBB6pu12ab17QzoAGtlSQkdyWMpvlSB3b0gv0aonQ6um9uC-LRsehENkJZTLBaE6R',
     },
   ],
 };
