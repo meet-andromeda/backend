@@ -1,13 +1,14 @@
 import type { AWS } from '@serverless/typescript';
-import { apiGatewayErrorsResources } from '../../serverless/resources';
+import {
+  apiGatewayErrorsResources,
+  xRayIamRoleStatement,
+} from '../../serverless';
 import config from './config';
-import { xRayIamRoleStatement } from '../../serverless';
 
 const {
   stage,
   selectedDomain,
   serviceName,
-  logger,
 } = config;
 
 const customDomain = {
@@ -77,4 +78,4 @@ const serverlessConfiguration: AWS = {
   },
 };
 
-module.exports = serverlessConfiguration;
+export default serverlessConfiguration;
