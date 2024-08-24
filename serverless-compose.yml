@@ -5,3 +5,5 @@ services:
     path: src/services/alchemy
   custom-smart-contract:
     path: src/services/custom-smart-contract
+  discord:
+    path: src/services/discord

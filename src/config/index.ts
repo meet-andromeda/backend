@@ -29,10 +29,11 @@ const serviceNames = {
   erc20: 'erc20',
   alchemy: 'alchemy',
   customSmartContract: 'custom-smart-contract',
+  discord: 'discord',
 };
 
 const domain = {
-  url: 'api.andromeda.com',
+  url: 'api.meetandromeda.com',
   enabled: true,
 };
 

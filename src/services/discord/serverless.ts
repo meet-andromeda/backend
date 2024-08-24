@@ -3,7 +3,7 @@ import {
   invokeFunctionStatement,
   xRayIamRoleStatement,
 } from '../../serverless/iam-role-statements';
-import eventListener from './index';
+import send from './index';
 import apiGatewayErrorsResources from '../../serverless/resources/api-gateway-errors';
 import config from './config';
 
@@ -66,7 +66,7 @@ const serverlessConfiguration: AWS = {
     },
   },
   functions: {
-    eventListener,
+    send,
   },
   resources: {
     Resources: {
