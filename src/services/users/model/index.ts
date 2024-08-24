@@ -25,8 +25,6 @@ schema.methods = {};
 
 const User = model<UserDocument, UserModel>('User', schema);
 
-User.createIndexes();
-
 User.on('index', (error) => {
   if (error) {
     logger.fatal({
