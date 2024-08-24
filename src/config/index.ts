@@ -2,6 +2,7 @@ import { domains } from './domains';
 import commonEsbuildConfig from './common-esbuild-config';
 import stage, { AllowedStage } from './stage';
 import envVariablesNames from './env-variable-names';
+import mongoConnection from './mongo-connection';
 
 interface LoggerInterface {
   retentionDays: 1 | 3 | 5 | 7 | 14 | 30 | 60 | 90
@@ -31,6 +32,7 @@ const serviceNames = {
   customSmartContract: 'custom-smart-contract',
   discord: 'discord',
   workflows: 'workflows',
+  users: 'users',
 };
 
 const domain = {
@@ -48,6 +50,7 @@ const config = {
   enabledNetworks,
   domain,
   envVariablesNames,
+  mongoConnection,
 };
 
 export type {
