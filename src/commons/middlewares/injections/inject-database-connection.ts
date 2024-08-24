@@ -25,6 +25,7 @@ function injectDatabaseConnection({
   const before = async (): Promise<void> => {
     set('strictQuery', true);
     set('bufferCommands', false);
+    console.log({ uri });
     await createDatabaseConnection(uri);
   };
 

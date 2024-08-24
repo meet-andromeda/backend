@@ -3,7 +3,7 @@ import HandlerConfig from '../../../../types/handler-config';
 
 const handlerConfig: HandlerConfig = {
   handler: `${handlerPath(__dirname)}/handler.main`,
-  timeout: 10,
+  timeout: 30,
   events: [
     {
       http: {

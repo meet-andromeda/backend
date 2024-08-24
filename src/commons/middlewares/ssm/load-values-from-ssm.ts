@@ -36,6 +36,8 @@ function loadValuesFromSsm({
     },
   };
 
+  console.log('loadValuesFromSSM');
+
   return ssm(options);
 }
 
