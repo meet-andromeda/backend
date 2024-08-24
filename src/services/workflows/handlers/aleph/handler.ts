@@ -18,6 +18,6 @@ export const main = middy(async (
 
   return {
     statusCode: StatusCodes.OK,
-    body: { ...requestBody },
+    body: requestBody,
   };
 }).use(middlewares);
