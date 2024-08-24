@@ -40132,6 +40132,392 @@ var require_build = __commonJS({
   }
 });
 
+// ../../../node_modules/aws4/lru.js
+var require_lru = __commonJS({
+  "../../../node_modules/aws4/lru.js"(exports, module2) {
+    module2.exports = function(size) {
+      return new LruCache(size);
+    };
+    function LruCache(size) {
+      this.capacity = size | 0;
+      this.map = /* @__PURE__ */ Object.create(null);
+      this.list = new DoublyLinkedList();
+    }
+    LruCache.prototype.get = function(key) {
+      var node = this.map[key];
+      if (node == null)
+        return void 0;
+      this.used(node);
+      return node.val;
+    };
+    LruCache.prototype.set = function(key, val2) {
+      var node = this.map[key];
+      if (node != null) {
+        node.val = val2;
+      } else {
+        if (!this.capacity)
+          this.prune();
+        if (!this.capacity)
+          return false;
+        node = new DoublyLinkedNode(key, val2);
+        this.map[key] = node;
+        this.capacity--;
+      }
+      this.used(node);
+      return true;
+    };
+    LruCache.prototype.used = function(node) {
+      this.list.moveToFront(node);
+    };
+    LruCache.prototype.prune = function() {
+      var node = this.list.pop();
+      if (node != null) {
+        delete this.map[node.key];
+        this.capacity++;
+      }
+    };
+    function DoublyLinkedList() {
+      this.firstNode = null;
+      this.lastNode = null;
+    }
+    DoublyLinkedList.prototype.moveToFront = function(node) {
+      if (this.firstNode == node)
+        return;
+      this.remove(node);
+      if (this.firstNode == null) {
+        this.firstNode = node;
+        this.lastNode = node;
+        node.prev = null;
+        node.next = null;
+      } else {
+        node.prev = null;
+        node.next = this.firstNode;
+        node.next.prev = node;
+        this.firstNode = node;
+      }
+    };
+    DoublyLinkedList.prototype.pop = function() {
+      var lastNode = this.lastNode;
+      if (lastNode != null) {
+        this.remove(lastNode);
+      }
+      return lastNode;
+    };
+    DoublyLinkedList.prototype.remove = function(node) {
+      if (this.firstNode == node) {
+        this.firstNode = node.next;
+      } else if (node.prev != null) {
+        node.prev.next = node.next;
+      }
+      if (this.lastNode == node) {
+        this.lastNode = node.prev;
+      } else if (node.next != null) {
+        node.next.prev = node.prev;
+      }
+    };
+    function DoublyLinkedNode(key, val2) {
+      this.key = key;
+      this.val = val2;
+      this.prev = null;
+      this.next = null;
+    }
+  }
+});
+
+// ../../../node_modules/aws4/aws4.js
+var require_aws4 = __commonJS({
+  "../../../node_modules/aws4/aws4.js"(exports) {
+    var aws4 = exports;
+    var url = require("url");
+    var querystring = require("querystring");
+    var crypto5 = require("crypto");
+    var lru = require_lru();
+    var credentialsCache = lru(1e3);
+    function hmac(key, string, encoding) {
+      return crypto5.createHmac("sha256", key).update(string, "utf8").digest(encoding);
+    }
+    function hash(string, encoding) {
+      return crypto5.createHash("sha256").update(string, "utf8").digest(encoding);
+    }
+    function encodeRfc3986(urlEncodedString) {
+      return urlEncodedString.replace(/[!'()*]/g, function(c) {
+        return "%" + c.charCodeAt(0).toString(16).toUpperCase();
+      });
+    }
+    function encodeRfc3986Full(str) {
+      return encodeRfc3986(encodeURIComponent(str));
+    }
+    var HEADERS_TO_IGNORE = {
+      "authorization": true,
+      "connection": true,
+      "x-amzn-trace-id": true,
+      "user-agent": true,
+      "expect": true,
+      "presigned-expires": true,
+      "range": true
+    };
+    function RequestSigner(request, credentials) {
+      if (typeof request === "string")
+        request = url.parse(request);
+      var headers = request.headers = Object.assign({}, request.headers || {}), hostParts = (!this.service || !this.region) && this.matchHost(request.hostname || request.host || headers.Host || headers.host);
+      this.request = request;
+      this.credentials = credentials || this.defaultCredentials();
+      this.service = request.service || hostParts[0] || "";
+      this.region = request.region || hostParts[1] || "us-east-1";
+      if (this.service === "email")
+        this.service = "ses";
+      if (!request.method && request.body)
+        request.method = "POST";
+      if (!headers.Host && !headers.host) {
+        headers.Host = request.hostname || request.host || this.createHost();
+        if (request.port)
+          headers.Host += ":" + request.port;
+      }
+      if (!request.hostname && !request.host)
+        request.hostname = headers.Host || headers.host;
+      this.isCodeCommitGit = this.service === "codecommit" && request.method === "GIT";
+      this.extraHeadersToIgnore = request.extraHeadersToIgnore || /* @__PURE__ */ Object.create(null);
+      this.extraHeadersToInclude = request.extraHeadersToInclude || /* @__PURE__ */ Object.create(null);
+    }
+    RequestSigner.prototype.matchHost = function(host) {
+      var match = (host || "").match(/([^\.]+)\.(?:([^\.]*)\.)?amazonaws\.com(\.cn)?$/);
+      var hostParts = (match || []).slice(1, 3);
+      if (hostParts[1] === "es" || hostParts[1] === "aoss")
+        hostParts = hostParts.reverse();
+      if (hostParts[1] == "s3") {
+        hostParts[0] = "s3";
+        hostParts[1] = "us-east-1";
+      } else {
+        for (var i = 0; i < 2; i++) {
+          if (/^s3-/.test(hostParts[i])) {
+            hostParts[1] = hostParts[i].slice(3);
+            hostParts[0] = "s3";
+            break;
+          }
+        }
+      }
+      return hostParts;
+    };
+    RequestSigner.prototype.isSingleRegion = function() {
+      if (["s3", "sdb"].indexOf(this.service) >= 0 && this.region === "us-east-1")
+        return true;
+      return ["cloudfront", "ls", "route53", "iam", "importexport", "sts"].indexOf(this.service) >= 0;
+    };
+    RequestSigner.prototype.createHost = function() {
+      var region3 = this.isSingleRegion() ? "" : "." + this.region, subdomain = this.service === "ses" ? "email" : this.service;
+      return subdomain + region3 + ".amazonaws.com";
+    };
+    RequestSigner.prototype.prepareRequest = function() {
+      this.parsePath();
+      var request = this.request, headers = request.headers, query;
+      if (request.signQuery) {
+        this.parsedPath.query = query = this.parsedPath.query || {};
+        if (this.credentials.sessionToken)
+          query["X-Amz-Security-Token"] = this.credentials.sessionToken;
+        if (this.service === "s3" && !query["X-Amz-Expires"])
+          query["X-Amz-Expires"] = 86400;
+        if (query["X-Amz-Date"])
+          this.datetime = query["X-Amz-Date"];
+        else
+          query["X-Amz-Date"] = this.getDateTime();
+        query["X-Amz-Algorithm"] = "AWS4-HMAC-SHA256";
+        query["X-Amz-Credential"] = this.credentials.accessKeyId + "/" + this.credentialString();
+        query["X-Amz-SignedHeaders"] = this.signedHeaders();
+      } else {
+        if (!request.doNotModifyHeaders && !this.isCodeCommitGit) {
+          if (request.body && !headers["Content-Type"] && !headers["content-type"])
+            headers["Content-Type"] = "application/x-www-form-urlencoded; charset=utf-8";
+          if (request.body && !headers["Content-Length"] && !headers["content-length"])
+            headers["Content-Length"] = Buffer.byteLength(request.body);
+          if (this.credentials.sessionToken && !headers["X-Amz-Security-Token"] && !headers["x-amz-security-token"])
+            headers["X-Amz-Security-Token"] = this.credentials.sessionToken;
+          if (this.service === "s3" && !headers["X-Amz-Content-Sha256"] && !headers["x-amz-content-sha256"])
+            headers["X-Amz-Content-Sha256"] = hash(this.request.body || "", "hex");
+          if (headers["X-Amz-Date"] || headers["x-amz-date"])
+            this.datetime = headers["X-Amz-Date"] || headers["x-amz-date"];
+          else
+            headers["X-Amz-Date"] = this.getDateTime();
+        }
+        delete headers.Authorization;
+        delete headers.authorization;
+      }
+    };
+    RequestSigner.prototype.sign = function() {
+      if (!this.parsedPath)
+        this.prepareRequest();
+      if (this.request.signQuery) {
+        this.parsedPath.query["X-Amz-Signature"] = this.signature();
+      } else {
+        this.request.headers.Authorization = this.authHeader();
+      }
+      this.request.path = this.formatPath();
+      return this.request;
+    };
+    RequestSigner.prototype.getDateTime = function() {
+      if (!this.datetime) {
+        var headers = this.request.headers, date = new Date(headers.Date || headers.date || /* @__PURE__ */ new Date());
+        this.datetime = date.toISOString().replace(/[:\-]|\.\d{3}/g, "");
+        if (this.isCodeCommitGit)
+          this.datetime = this.datetime.slice(0, -1);
+      }
+      return this.datetime;
+    };
+    RequestSigner.prototype.getDate = function() {
+      return this.getDateTime().substr(0, 8);
+    };
+    RequestSigner.prototype.authHeader = function() {
+      return [
+        "AWS4-HMAC-SHA256 Credential=" + this.credentials.accessKeyId + "/" + this.credentialString(),
+        "SignedHeaders=" + this.signedHeaders(),
+        "Signature=" + this.signature()
+      ].join(", ");
+    };
+    RequestSigner.prototype.signature = function() {
+      var date = this.getDate(), cacheKey = [this.credentials.secretAccessKey, date, this.region, this.service].join(), kDate, kRegion, kService, kCredentials = credentialsCache.get(cacheKey);
+      if (!kCredentials) {
+        kDate = hmac("AWS4" + this.credentials.secretAccessKey, date);
+        kRegion = hmac(kDate, this.region);
+        kService = hmac(kRegion, this.service);
+        kCredentials = hmac(kService, "aws4_request");
+        credentialsCache.set(cacheKey, kCredentials);
+      }
+      return hmac(kCredentials, this.stringToSign(), "hex");
+    };
+    RequestSigner.prototype.stringToSign = function() {
+      return [
+        "AWS4-HMAC-SHA256",
+        this.getDateTime(),
+        this.credentialString(),
+        hash(this.canonicalString(), "hex")
+      ].join("\n");
+    };
+    RequestSigner.prototype.canonicalString = function() {
+      if (!this.parsedPath)
+        this.prepareRequest();
+      var pathStr = this.parsedPath.path, query = this.parsedPath.query, headers = this.request.headers, queryStr = "", normalizePath = this.service !== "s3", decodePath = this.service === "s3" || this.request.doNotEncodePath, decodeSlashesInPath = this.service === "s3", firstValOnly = this.service === "s3", bodyHash;
+      if (this.service === "s3" && this.request.signQuery) {
+        bodyHash = "UNSIGNED-PAYLOAD";
+      } else if (this.isCodeCommitGit) {
+        bodyHash = "";
+      } else {
+        bodyHash = headers["X-Amz-Content-Sha256"] || headers["x-amz-content-sha256"] || hash(this.request.body || "", "hex");
+      }
+      if (query) {
+        var reducedQuery = Object.keys(query).reduce(function(obj, key) {
+          if (!key)
+            return obj;
+          obj[encodeRfc3986Full(key)] = !Array.isArray(query[key]) ? query[key] : firstValOnly ? query[key][0] : query[key];
+          return obj;
+        }, {});
+        var encodedQueryPieces = [];
+        Object.keys(reducedQuery).sort().forEach(function(key) {
+          if (!Array.isArray(reducedQuery[key])) {
+            encodedQueryPieces.push(key + "=" + encodeRfc3986Full(reducedQuery[key]));
+          } else {
+            reducedQuery[key].map(encodeRfc3986Full).sort().forEach(function(val2) {
+              encodedQueryPieces.push(key + "=" + val2);
+            });
+          }
+        });
+        queryStr = encodedQueryPieces.join("&");
+      }
+      if (pathStr !== "/") {
+        if (normalizePath)
+          pathStr = pathStr.replace(/\/{2,}/g, "/");
+        pathStr = pathStr.split("/").reduce(function(path, piece) {
+          if (normalizePath && piece === "..") {
+            path.pop();
+          } else if (!normalizePath || piece !== ".") {
+            if (decodePath)
+              piece = decodeURIComponent(piece.replace(/\+/g, " "));
+            path.push(encodeRfc3986Full(piece));
+          }
+          return path;
+        }, []).join("/");
+        if (pathStr[0] !== "/")
+          pathStr = "/" + pathStr;
+        if (decodeSlashesInPath)
+          pathStr = pathStr.replace(/%2F/g, "/");
+      }
+      return [
+        this.request.method || "GET",
+        pathStr,
+        queryStr,
+        this.canonicalHeaders() + "\n",
+        this.signedHeaders(),
+        bodyHash
+      ].join("\n");
+    };
+    RequestSigner.prototype.filterHeaders = function() {
+      var headers = this.request.headers, extraHeadersToInclude = this.extraHeadersToInclude, extraHeadersToIgnore = this.extraHeadersToIgnore;
+      this.filteredHeaders = Object.keys(headers).map(function(key) {
+        return [key.toLowerCase(), headers[key]];
+      }).filter(function(entry) {
+        return extraHeadersToInclude[entry[0]] || HEADERS_TO_IGNORE[entry[0]] == null && !extraHeadersToIgnore[entry[0]];
+      }).sort(function(a, b) {
+        return a[0] < b[0] ? -1 : 1;
+      });
+    };
+    RequestSigner.prototype.canonicalHeaders = function() {
+      if (!this.filteredHeaders)
+        this.filterHeaders();
+      return this.filteredHeaders.map(function(entry) {
+        return entry[0] + ":" + entry[1].toString().trim().replace(/\s+/g, " ");
+      }).join("\n");
+    };
+    RequestSigner.prototype.signedHeaders = function() {
+      if (!this.filteredHeaders)
+        this.filterHeaders();
+      return this.filteredHeaders.map(function(entry) {
+        return entry[0];
+      }).join(";");
+    };
+    RequestSigner.prototype.credentialString = function() {
+      return [
+        this.getDate(),
+        this.region,
+        this.service,
+        "aws4_request"
+      ].join("/");
+    };
+    RequestSigner.prototype.defaultCredentials = function() {
+      var env = process.env;
+      return {
+        accessKeyId: env.AWS_ACCESS_KEY_ID || env.AWS_ACCESS_KEY,
+        secretAccessKey: env.AWS_SECRET_ACCESS_KEY || env.AWS_SECRET_KEY,
+        sessionToken: env.AWS_SESSION_TOKEN
+      };
+    };
+    RequestSigner.prototype.parsePath = function() {
+      var path = this.request.path || "/";
+      if (/[^0-9A-Za-z;,/?:@&=+$\-_.!~*'()#%]/.test(path)) {
+        path = encodeURI(decodeURI(path));
+      }
+      var queryIx = path.indexOf("?"), query = null;
+      if (queryIx >= 0) {
+        query = querystring.parse(path.slice(queryIx + 1));
+        path = path.slice(0, queryIx);
+      }
+      this.parsedPath = {
+        path,
+        query
+      };
+    };
+    RequestSigner.prototype.formatPath = function() {
+      var path = this.parsedPath.path, query = this.parsedPath.query;
+      if (!query)
+        return path;
+      if (query[""] != null)
+        delete query[""];
+      return path + "?" + encodeRfc3986(querystring.stringify(query));
+    };
+    aws4.RequestSigner = RequestSigner;
+    aws4.sign = function(request, credentials) {
+      return new RequestSigner(request, credentials).sign();
+    };
+  }
+});
+
 // ../../../node_modules/mongodb/lib/deps.js
 var require_deps = __commonJS({
   "../../../node_modules/mongodb/lib/deps.js"(exports) {
@@ -40215,7 +40601,7 @@ var require_deps = __commonJS({
     function loadAws4() {
       let aws4;
       try {
-        aws4 = require("aws4");
+        aws4 = require_aws4();
       } catch (error) {
         aws4 = makeErrorModule(new error_1.MongoMissingDependencyError("Optional module `aws4` not found. Please install it to enable AWS authentication", { cause: error, dependencyName: "aws4" }));
       }
@@ -97316,7 +97702,7 @@ var envVariablesNames = {
 var env_variable_names_default = envVariablesNames;
 
 // ../../config/mongo-connection.ts
-var mongoUri = (serviceName2, clusterName2) => `mongodb+srv://${encodeURIComponent(process.env.AWS_ACCESS_KEY_ID ?? "")}:${encodeURIComponent(process.env.AWS_SECRET_ACCESS_KEY ?? "")}@${encodeURIComponent(clusterName2)}.7ajmx.mongodb.net/${encodeURIComponent(serviceName2)}?authSource=%24external&authMechanism=MONGODB-AWS&retryWrites=true&w=majority&authMechanismProperties=AWS_SESSION_TOKEN:${encodeURIComponent(process.env.AWS_SESSION_TOKEN ?? "")}`;
+var mongoUri = (serviceName2, clusterName2) => `mongodb+srv://${encodeURIComponent(process.env.AWS_ACCESS_KEY_ID ?? "")}:${encodeURIComponent(process.env.AWS_SECRET_ACCESS_KEY ?? "")}@${encodeURIComponent(clusterName2)}.ewmkw.mongodb.net/${encodeURIComponent(serviceName2)}?authSource=%24external&authMechanism=MONGODB-AWS&retryWrites=true&w=majority&authMechanismProperties=AWS_SESSION_TOKEN:${encodeURIComponent(process.env.AWS_SESSION_TOKEN ?? "")}`;
 var clusterName = (stage3) => {
   switch (stage3) {
     case "dev":
@@ -97814,7 +98200,6 @@ schema_default.statics = {
 };
 schema_default.methods = {};
 var User = (0, import_mongoose3.model)("User", schema_default);
-User.createIndexes();
 User.on("index", (error) => {
   if (error) {
     logger_default.fatal({
