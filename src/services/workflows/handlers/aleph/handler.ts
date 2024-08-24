@@ -18,6 +18,11 @@ const middlewares = [
   errorLogger(),
 ];
 
+interface DecodeEventResponse {
+  userAddress: string;
+  solanaAddress: string;
+}
+
 export const main = middy(async (
   event: APIGatewayProxyEvent,
 ): Promise<HandlerResponse> => {
@@ -29,20 +34,36 @@ export const main = middy(async (
   console.log('Hash: ', transactionHash);
 
   if (version === 'v1') {
-    const params = {
+    // 1: Decode Event
+    const params1 = {
       ...v1.actions[0].params,
       transactionHash,
     };
-
-    console.log('Params: ', params);
-    const txEvent = await invokeLambdaFunction({
+    console.log('Params: ', params1);
+    const txEvent = await invokeLambdaFunction<DecodeEventResponse>({
       functionName: 'custom-smart-contract-dev-decodeEvent',
       body: {
-        ...params,
+        ...params1,
       },
     });
+    console.log('Decoded Event: ', txEvent);
 
-    console.log('Tx Event: ', txEvent);
+    // 4: Send Discord Message
+    const params4 = {
+      ...v1.actions[3].params,
+      params: {
+        greetTransactionHash: transactionHash,
+        greetUserAddress: txEvent.userAddress,
+        greetSolanaAddress: txEvent.solanaAddress,
+      },
+    };
+    const message = await invokeLambdaFunction({
+      functionName: 'discord-dev-sendMessage',
+      body: {
+        ...params4,
+      },
+    });
+    console.log('Discord Message: ', message);
   }
 
   return {
