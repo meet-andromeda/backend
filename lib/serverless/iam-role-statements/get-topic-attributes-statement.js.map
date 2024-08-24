@@ -1,0 +1,1 @@
+{"version":3,"file":"get-topic-attributes-statement.js","sourceRoot":"","sources":["../../../src/serverless/iam-role-statements/get-topic-attributes-statement.ts"],"names":[],"mappings":";;AAAA,MAAM,2BAA2B,GAAG;IAClC,MAAM,EAAE,OAAO;IACf,MAAM,EAAE;QACN,wBAAwB;KACzB;IACD,QAAQ,EAAE,GAAG;CACd,CAAC;AAEF,kBAAe,2BAA2B,CAAC"}

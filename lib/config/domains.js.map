@@ -1,0 +1,1 @@
+{"version":3,"file":"domains.js","sourceRoot":"","sources":["../../src/config/domains.ts"],"names":[],"mappings":";;;AAKA,MAAM,OAAO,GAA2B;IACtC,IAAI,EAAE;QACJ,GAAG,EAAE,uBAAuB;QAC5B,OAAO,EAAE,IAAI;KACd;IACD,OAAO,EAAE;QACP,GAAG,EAAE,MAAM;QACX,OAAO,EAAE,KAAK;KACf;CACF,CAAC;AAEO,0BAAO"}

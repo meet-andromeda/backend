@@ -1,0 +1,1 @@
+{"version":3,"file":"publish-topic-statement.js","sourceRoot":"","sources":["../../../src/serverless/iam-role-statements/publish-topic-statement.ts"],"names":[],"mappings":";;AAAA,MAAM,qBAAqB,GAAG;IAC5B,MAAM,EAAE,OAAO;IACf,MAAM,EAAE;QACN,aAAa;KACd;IACD,QAAQ,EAAE,GAAG;CACd,CAAC;AAEF,kBAAe,qBAAqB,CAAC"}

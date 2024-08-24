@@ -1,0 +1,1 @@
+{"version":3,"file":"vpc-execution-statement.js","sourceRoot":"","sources":["../../../src/serverless/iam-role-statements/vpc-execution-statement.ts"],"names":[],"mappings":";;AAAA,MAAM,qBAAqB,GAAG;IAC5B,MAAM,EAAE,OAAO;IACf,MAAM,EAAE;QACN,4BAA4B;QAC5B,+BAA+B;QAC/B,4BAA4B;QAC5B,8BAA8B;QAC9B,gCAAgC;KACjC;IACD,QAAQ,EAAE,GAAG;CACd,CAAC;AAEF,kBAAe,qBAAqB,CAAC"}

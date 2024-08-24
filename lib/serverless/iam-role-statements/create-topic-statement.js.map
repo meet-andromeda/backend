@@ -1,0 +1,1 @@
+{"version":3,"file":"create-topic-statement.js","sourceRoot":"","sources":["../../../src/serverless/iam-role-statements/create-topic-statement.ts"],"names":[],"mappings":";;AAAA,MAAM,oBAAoB,GAAG;IAC3B,MAAM,EAAE,OAAO;IACf,MAAM,EAAE;QACN,iBAAiB;KAClB;IACD,QAAQ,EAAE,GAAG;CACd,CAAC;AAEF,kBAAe,oBAAoB,CAAC"}
