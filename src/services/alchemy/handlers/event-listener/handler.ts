@@ -1,8 +1,8 @@
 import middy from '@middy/core';
 import httpErrorHandler from '@middy/http-error-handler';
 import { StatusCodes } from 'http-status-codes';
-import addPostCors from '../../commons/middlewares/cors/add-post-cors';
-import HandlerResponse from '../../types/handler-response';
+import addPostCors from '../../../../commons/middlewares/cors/add-post-cors';
+import HandlerResponse from '../../../../types/handler-response';
 
 const middlewares = [
   addPostCors(),

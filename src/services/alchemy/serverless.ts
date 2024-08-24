@@ -3,9 +3,9 @@ import {
   invokeFunctionStatement,
   xRayIamRoleStatement,
 } from '../../serverless/iam-role-statements';
-import eventListener from './index';
 import apiGatewayErrorsResources from '../../serverless/resources/api-gateway-errors';
 import config from './config';
+import * as functions from './handlers';
 
 const {
   stage,
@@ -61,9 +61,7 @@ const serverlessConfiguration: AWS = {
       },
     },
   },
-  functions: {
-    eventListener,
-  },
+  functions,
   resources: {
     Resources: {
       ...apiGatewayErrorsResources,
