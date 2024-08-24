@@ -1,0 +1,24 @@
+# package directories
+node_modules
+jspm_packages
+lib
+
+# Serverless directories
+.serverless
+
+# Webpack directories
+.webpack
+
+# eslint
+.eslintrc.js
+
+# mocha
+mocha.hooks.js
+
+# nyc (test coverage)
+coverage
+.nyc_output
+nyc.config.js
+
+# swagger
+swagger

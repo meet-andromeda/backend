@@ -1,0 +1,39 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Meet andromeda backend orchestrates different apps and functions",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint './**/*.{js,ts}'",
+    "build": "tsc --build",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy": "serverless compose deploy",
+    "remove": "serverless compose remove"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@serverless/typescript": "^3.38.0",
+    "@typescript-eslint/eslint-plugin": "^6.2.0",
+    "@typescript-eslint/parser": "^6.2.0",
+    "eslint": "^8.56.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-airbnb-typescript": "^17.0.0",
+    "eslint-import-resolver-typescript": "^3.5.5",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-no-only-tests": "^3.1.0",
+    "esbuild": "^0.17.0",
+    "serverless": "^3.38.0",
+    "serverless-api-gateway-caching": "^1.10.3",
+    "serverless-disable-functions": "^1.0.0",
+    "serverless-domain-manager": "^7.3.3",
+    "serverless-esbuild": "1.46.0",
+    "serverless-offline": "^13.3.2",
+    "serverless-prune-plugin": "^2.0.2",
+    "json-schema-to-ts": "^1.5.0",
+    "ts-loader": "^8.0.15",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  }
+}
