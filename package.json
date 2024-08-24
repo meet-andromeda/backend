@@ -46,6 +46,7 @@
     "@middy/core": "^5.4.6",
     "@middy/http-cors": "^5.4.6",
     "@middy/http-error-handler": "^5.4.6",
+    "@middy/http-response-serializer": "^5.4.6",
     "@middy/ssm": "^5.4.6",
     "aws-lambda": "^1.0.7",
     "axios": "^1.7.5",
