@@ -28,6 +28,7 @@ const enabledNetworks: number[] = [
 const serviceNames = {
   erc20: 'erc20',
   alchemy: 'alchemy',
+  discord: 'discord',
 };
 
 const domain = {
