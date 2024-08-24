@@ -35,12 +35,14 @@ export const main = middy(async (
     };
 
     console.log('Params: ', params);
-    await invokeLambdaFunction({
+    const txEvent = await invokeLambdaFunction({
       functionName: 'custom-smart-contract-dev-decodeEvent',
       body: {
         ...params,
       },
     });
+
+    console.log('Tx Event: ', txEvent);
   }
 
   return {
