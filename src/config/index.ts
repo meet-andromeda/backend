@@ -1,6 +1,7 @@
 import { domains } from './domains';
 import commonEsbuildConfig from './common-esbuild-config';
 import stage, { AllowedStage } from './stage';
+import envVariablesNames from './env-variable-names';
 
 interface LoggerInterface {
   retentionDays: 1 | 3 | 5 | 7 | 14 | 30 | 60 | 90
@@ -26,11 +27,14 @@ const enabledNetworks: number[] = [
 
 const serviceNames = {
   erc20: 'erc20',
-  listener: 'listener',
+  alchemy: 'alchemy',
+  customSmartContract: 'custom-smart-contract',
+  discord: 'discord',
+  workflows: 'workflows',
 };
 
 const domain = {
-  url: 'api.andromeda.com',
+  url: 'api.meetandromeda.com',
   enabled: true,
 };
 
@@ -43,6 +47,7 @@ const config = {
   commonEsbuildConfig,
   enabledNetworks,
   domain,
+  envVariablesNames,
 };
 
 export type {
