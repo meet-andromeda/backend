@@ -39,6 +39,7 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
+    "@aws-sdk/client-lambda": "^3.637.0",
     "@aws-sdk/client-ssm": "^3.637.0",
     "@ethersproject/contracts": "^5.4.0",
     "@ethersproject/providers": "^5.5.1",
