@@ -1,6 +1,7 @@
 import { domains } from './domains';
 import commonEsbuildConfig from './common-esbuild-config';
 import stage, { AllowedStage } from './stage';
+import envVariablesNames from './env-variable-names';
 
 interface LoggerInterface {
   retentionDays: 1 | 3 | 5 | 7 | 14 | 30 | 60 | 90
@@ -43,6 +44,7 @@ const config = {
   commonEsbuildConfig,
   enabledNetworks,
   domain,
+  envVariablesNames,
 };
 
 export type {
