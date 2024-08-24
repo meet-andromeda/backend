@@ -1,5 +1,5 @@
-import { handlerPath } from '../../commons/handler-resolver';
-import HandlerConfig from '../../types/handler-config';
+import { handlerPath } from '../../../../commons/handler-resolver';
+import HandlerConfig from '../../../../types/handler-config';
 
 const handlerConfig: HandlerConfig = {
   handler: `${handlerPath(__dirname)}/handler.main`,
