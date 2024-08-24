@@ -18,21 +18,27 @@ const middlewares = [
 ];
 
 export const main = middy(async (event: APIGatewayProxyEvent): Promise<HandlerResponse> => {
-  const body = JSON.parse(event.body);
+  try {
+    const body = JSON.parse(event.body);
 
-  const {
-    transaction: {
-      hash,
-    },
-  } = body;
+    const {
+      transaction: {
+        hash,
+      },
+    } = body;
 
-  invokeLambdaFunction({
-    functionName: 'workflows-dev-aleph',
-    body: {
-      transactionHash: hash,
-      version: 'v1',
-    },
-  });
+    console.log('Invoke Lambda With Hash: ', hash);
+
+    await invokeLambdaFunction({
+      functionName: 'workflows-dev-aleph',
+      body: {
+        transactionHash: hash,
+        version: 'v1',
+      },
+    });
+  } catch (error) {
+    console.log('Error: ', error);
+  }
 
   return {
     statusCode: StatusCodes.OK,

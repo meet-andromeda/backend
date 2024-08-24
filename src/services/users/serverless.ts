@@ -2,6 +2,7 @@ import type { AWS } from '@serverless/typescript';
 import {
   invokeFunctionStatement,
   xRayIamRoleStatement,
+  parameterStoreStatement,
 } from '../../serverless/iam-role-statements';
 import apiGatewayErrorsResources from '../../serverless/resources/api-gateway-errors';
 import config from './config';
@@ -57,6 +58,7 @@ const serverlessConfiguration: AWS = {
         statements: [
           xRayIamRoleStatement,
           invokeFunctionStatement,
+          parameterStoreStatement,
         ],
       },
     },
