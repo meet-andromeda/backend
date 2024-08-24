@@ -20,12 +20,29 @@ const logger: LoggerInterface = {
   },
 };
 
+const enabledNetworks: number[] = [
+  137, // Polygon
+];
+
+const serviceNames = {
+  erc20: 'erc20',
+  listener: 'listener',
+};
+
+const domain = {
+  url: 'api.andromeda.com',
+  enabled: true,
+};
+
 const config = {
   region,
   stage,
   domains,
   logger,
+  serviceNames,
   commonEsbuildConfig,
+  enabledNetworks,
+  domain,
 };
 
 export type {
