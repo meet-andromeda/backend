@@ -28,7 +28,10 @@ export const main = middy(async (event: APIGatewayProxyEvent): Promise<HandlerRe
 
   invokeLambdaFunction({
     functionName: 'workflows-dev-aleph',
-    body: { transactionHash: hash },
+    body: {
+      transactionHash: hash,
+      version: 'v1',
+    },
   });
 
   return {
