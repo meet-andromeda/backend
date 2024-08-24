@@ -1,5 +1,5 @@
-import send from './send';
+import transfer from './transfer';
 
 export {
-  send,
+  transfer,
 };
