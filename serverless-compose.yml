@@ -3,5 +3,7 @@ services:
     path: src/services/erc20
   alchemy:
     path: src/services/alchemy
+  custom-smart-contract:
+    path: src/services/custom-smart-contract
   discord:
     path: src/services/discord
