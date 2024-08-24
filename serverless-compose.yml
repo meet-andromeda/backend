@@ -1,3 +1,7 @@
 services:
   erc20:
     path: src/services/erc20
+  alchemy:
+    path: src/services/alchemy
+  discord:
+    path: src/services/discord
