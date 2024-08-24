@@ -1,0 +1,1 @@
+{"version":3,"file":"create-not-found-error.js","sourceRoot":"","sources":["../../../../src/commons/errors/client/create-not-found-error.ts"],"names":[],"mappings":";;AAAA,6CAAkD;AAClD,yDAA6D;AAE7D,SAAS,mBAAmB,CAC1B,UAAkB,0CAAuB;IAEzC,OAAO,IAAI,sBAAQ,CAAC,OAAO,CAAC,CAAC;AAC/B,CAAC;AAED,kBAAe,mBAAmB,CAAC"}
