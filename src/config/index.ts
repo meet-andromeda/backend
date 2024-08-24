@@ -33,7 +33,8 @@ const serviceNames = {
 };
 
 const domain = {
-  url: 'api.meetandromeda.com',
+  // url: 'api.meetandromeda.com',
+  url: 'andromeda-api.arch.finance',
   enabled: true,
 };
 
