@@ -1,1 +1,0 @@
-{"version":3,"file":"x-ray-iam-role-statement.js","sourceRoot":"","sources":["../../../src/serverless/iam-role-statements/x-ray-iam-role-statement.ts"],"names":[],"mappings":";;AAAA,MAAM,oBAAoB,GAAG;IAC3B,MAAM,EAAE,OAAO;IACf,MAAM,EAAE;QACN,uBAAuB;QACvB,0BAA0B;KAC3B;IACD,QAAQ,EAAE,GAAG;CACd,CAAC;AAEF,kBAAe,oBAAoB,CAAC"}
