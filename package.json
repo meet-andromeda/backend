@@ -7,8 +7,8 @@
     "lint": "eslint './**/*.{js,ts}'",
     "build": "tsc --build",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "deploy": "serverless deploy",
-    "remove": "serverless remove"
+    "deploy": "STAGE=dev sls deploy --stage dev",
+    "remove": "STAGE=dev sls remove --stage dev"
   },
   "keywords": [],
   "author": "",
