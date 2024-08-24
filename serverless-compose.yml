@@ -9,3 +9,5 @@ services:
     path: src/services/discord
   users:
     path: src/services/users
+  workflows:
+    path: src/services/workflows
