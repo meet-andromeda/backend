@@ -27,7 +27,7 @@ const enabledNetworks: number[] = [
 
 const serviceNames = {
   erc20: 'erc20',
-  alchemy: 'alchemy',
+  tenderly: 'tenderly',
   customSmartContract: 'custom-smart-contract',
   discord: 'discord',
   workflows: 'workflows',
