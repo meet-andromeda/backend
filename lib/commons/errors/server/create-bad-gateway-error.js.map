@@ -1,1 +1,0 @@
-{"version":3,"file":"create-bad-gateway-error.js","sourceRoot":"","sources":["../../../../src/commons/errors/server/create-bad-gateway-error.ts"],"names":[],"mappings":";;;;;AAAA,8DAAyD;AACzD,yDAAgD;AAChD,yDAA+D;AAE/D,SAAS,qBAAqB,CAC5B,UAAkB,4CAAyB;IAE3C,OAAO,IAAA,qBAAe,EACpB,+BAAW,CAAC,WAAW,EACvB,OAAO,EACP;QACE,MAAM,EAAE,IAAI;KACb,CACF,CAAC;AACJ,CAAC;AAED,kBAAe,qBAAqB,CAAC"}

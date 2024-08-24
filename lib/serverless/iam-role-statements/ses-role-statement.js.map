@@ -1,1 +1,0 @@
-{"version":3,"file":"ses-role-statement.js","sourceRoot":"","sources":["../../../src/serverless/iam-role-statements/ses-role-statement.ts"],"names":[],"mappings":";;AAAA,MAAM,gBAAgB,GAAG;IACvB,MAAM,EAAE,OAAO;IACf,MAAM,EAAE;QACN,OAAO;KACR;IACD,QAAQ,EAAE,GAAG;CACd,CAAC;AAEF,kBAAe,gBAAgB,CAAC"}

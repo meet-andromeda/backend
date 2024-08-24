@@ -1,1 +1,0 @@
-{"version":3,"file":"invoke-function-statement.js","sourceRoot":"","sources":["../../../src/serverless/iam-role-statements/invoke-function-statement.ts"],"names":[],"mappings":";;AAAA,MAAM,uBAAuB,GAAG;IAC9B,MAAM,EAAE,OAAO;IACf,MAAM,EAAE;QACN,uBAAuB;KACxB;IACD,QAAQ,EAAE,GAAG;CACd,CAAC;AAEF,kBAAe,uBAAuB,CAAC"}
