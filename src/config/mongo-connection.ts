@@ -1,4 +1,4 @@
-const mongoUri = (serviceName: string, clusterName: string): string => `mongodb+srv://${encodeURIComponent(process.env.AWS_ACCESS_KEY_ID ?? '')}:${encodeURIComponent(process.env.AWS_SECRET_ACCESS_KEY ?? '')}@${encodeURIComponent(clusterName)}.7ajmx.mongodb.net/${encodeURIComponent(serviceName)}?authSource=%24external&authMechanism=MONGODB-AWS&retryWrites=true&w=majority&authMechanismProperties=AWS_SESSION_TOKEN:${encodeURIComponent(process.env.AWS_SESSION_TOKEN ?? '')}`;
+const mongoUri = (serviceName: string, clusterName: string): string => `mongodb+srv://${encodeURIComponent(process.env.AWS_ACCESS_KEY_ID ?? '')}:${encodeURIComponent(process.env.AWS_SECRET_ACCESS_KEY ?? '')}@${encodeURIComponent(clusterName)}.ewmkw.mongodb.net/${encodeURIComponent(serviceName)}?authSource=%24external&authMechanism=MONGODB-AWS&retryWrites=true&w=majority&authMechanismProperties=AWS_SESSION_TOKEN:${encodeURIComponent(process.env.AWS_SESSION_TOKEN ?? '')}`;
 
 const clusterName = (stage: string): string => {
   switch (stage) {
