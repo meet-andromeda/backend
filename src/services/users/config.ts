@@ -12,6 +12,9 @@ const mongoUri = mongoConnection({
   stage,
   serviceName,
 });
+console.log({
+  mongoUri,
+});
 
 const config = {
   stage,
