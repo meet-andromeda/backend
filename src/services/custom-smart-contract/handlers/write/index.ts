@@ -8,7 +8,7 @@ const handlerConfig: HandlerConfig = {
     {
       http: {
         method: 'post',
-        path: '/',
+        path: '/write',
         cors: true,
         request: {},
       },
