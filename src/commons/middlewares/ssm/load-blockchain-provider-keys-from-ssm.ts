@@ -10,14 +10,12 @@ unknown,
 unknown
 > {
   const {
-    infuraProjectId,
     alchemyApiKeyEthereum,
     alchemyApiKeyPolygon,
   } = config.envVariablesNames;
 
   const options = {
     fetchData: {
-      [infuraProjectId]: '/backend/infura-project-id',
       [alchemyApiKeyEthereum]: '/backend/alchemy-api-key-ethereum',
       [alchemyApiKeyPolygon]: '/backend/alchemy-api-key-polygon',
     },
