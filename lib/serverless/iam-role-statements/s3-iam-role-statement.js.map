@@ -1,1 +1,0 @@
-{"version":3,"file":"s3-iam-role-statement.js","sourceRoot":"","sources":["../../../src/serverless/iam-role-statements/s3-iam-role-statement.ts"],"names":[],"mappings":";;AAAA,MAAM,SAAS,GAAG;IAChB,MAAM,EAAE,OAAO;IACf,MAAM,EAAE;QACN,MAAM;KACP;IACD,QAAQ,EAAE,GAAG;CACd,CAAC;AAEF,kBAAe,SAAS,CAAC"}

@@ -1,1 +1,0 @@
-{"version":3,"file":"add-post-cors.js","sourceRoot":"","sources":["../../../../src/commons/middlewares/cors/add-post-cors.ts"],"names":[],"mappings":";;;;;AAAA,iEAAoC;AAOpC,SAAS,WAAW;IAClB,OAAO,IAAA,mBAAI,EAAC;QACV,OAAO,EAAE,MAAM;KAChB,CAAC,CAAC;AACL,CAAC;AAED,kBAAe,WAAW,CAAC"}

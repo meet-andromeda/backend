@@ -1,1 +1,0 @@
-{"version":3,"file":"create-forbidden-error.js","sourceRoot":"","sources":["../../../../src/commons/errors/client/create-forbidden-error.ts"],"names":[],"mappings":";;AAAA,6CAAmD;AACnD,yDAA6D;AAE7D,SAAS,oBAAoB,CAC3B,UAAkB,0CAAuB;IAEzC,OAAO,IAAI,uBAAS,CAAC,OAAO,CAAC,CAAC;AAChC,CAAC;AAED,kBAAe,oBAAoB,CAAC"}

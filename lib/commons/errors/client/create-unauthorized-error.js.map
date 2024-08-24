@@ -1,1 +1,0 @@
-{"version":3,"file":"create-unauthorized-error.js","sourceRoot":"","sources":["../../../../src/commons/errors/client/create-unauthorized-error.ts"],"names":[],"mappings":";;AAAA,6CAAsD;AACtD,yDAAgE;AAEhE,SAAS,uBAAuB,CAC9B,UAAkB,6CAA0B;IAE5C,OAAO,IAAI,0BAAY,CAAC,OAAO,CAAC,CAAC;AACnC,CAAC;AAED,kBAAe,uBAAuB,CAAC"}
