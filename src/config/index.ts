@@ -32,7 +32,7 @@ const serviceNames = {
 };
 
 const domain = {
-  url: 'api.andromeda.com',
+  url: 'api.meetandromeda.com',
   enabled: true,
 };
 
