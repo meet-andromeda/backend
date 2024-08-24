@@ -41,6 +41,7 @@
   "dependencies": {
     "@aws-sdk/client-lambda": "^3.637.0",
     "@aws-sdk/client-ssm": "^3.637.0",
+    "@circle-fin/developer-controlled-wallets": "^4.2.1",
     "@ethersproject/contracts": "^5.4.0",
     "@ethersproject/providers": "^5.5.1",
     "@middy/core": "^5.4.6",
@@ -58,6 +59,7 @@
     "http-errors": "^2.0.0",
     "http-status-codes": "^2.3.0",
     "mongoose": "^8.5.4",
+    "node-forge": "^1.3.1",
     "pino": "^9.3.2"
   }
 }

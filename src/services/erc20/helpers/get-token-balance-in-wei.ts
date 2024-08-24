@@ -13,7 +13,7 @@ interface GetTokenBalanceInWeiParams {
  * - `WMATIC` for Polygon.
  * - `WETH` for Ethereum.
  *
- * @param    provider     Provider (such as Infura) used to read from the blockchain.
+ * @param    provider     Provider (such as alchemy) used to read from the blockchain.
  * @param    tokenAddress Address of the token whose balance is to be requested
  * @param    userAddress  Address of the user whose token balance is to be requested
  * @returns The user's token balance in wei as a decimal string

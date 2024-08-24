@@ -13,6 +13,8 @@ const mongoUri = mongoConnection({
   serviceName,
 });
 
+const circleWalletSetId = 'fd703dce-11ce-5ded-aee6-03e7571d2252';
+
 const config = {
   stage,
   selectedDomain,
@@ -20,6 +22,7 @@ const config = {
   logger: generalConfig.logger,
   region,
   mongoUri,
+  circleWalletSetId,
 };
 
 export default config;
