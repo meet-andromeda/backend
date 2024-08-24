@@ -1,0 +1,1 @@
+{"version":3,"file":"ssm-parameter-store.js","sourceRoot":"","sources":["../../../src/serverless/iam-role-statements/ssm-parameter-store.ts"],"names":[],"mappings":";;AAAA,MAAM,uBAAuB,GAAG;IAC9B,MAAM,EAAE,OAAO;IACf,MAAM,EAAE;QACN,mBAAmB;QACnB,kBAAkB;QAClB,kBAAkB;KACnB;IACD,QAAQ,EAAE,GAAG;CACd,CAAC;AAEF,kBAAe,uBAAuB,CAAC"}
