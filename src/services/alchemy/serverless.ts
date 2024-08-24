@@ -27,10 +27,6 @@ const serverlessConfiguration: AWS = {
   frameworkVersion: '3',
   custom: {
     customDomain,
-    prune: {
-      automatic: true,
-      number: 5,
-    },
   },
   plugins: [
     'serverless-domain-manager',
