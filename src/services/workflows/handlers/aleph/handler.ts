@@ -19,8 +19,10 @@ const middlewares = [
 ];
 
 interface DecodeEventResponse {
-  userAddress: string;
-  solanaAddress: string;
+  transactionEvent: {
+    userAddress: string;
+    solanaAddress: string;
+  }
 }
 
 export const main = middy(async (
@@ -52,11 +54,10 @@ export const main = middy(async (
     const params4 = {
       ...v1.actions[3].params,
       params: {
-        greetTransactionHash: transactionHash,
-        greetUserAddress: txEvent.userAddress,
-        greetSolanaAddress: txEvent.solanaAddress,
+        'Airdrop Sent To': txEvent.transactionEvent.userAddress,
       },
     };
+    console.log('Params: ', params4);
     const message = await invokeLambdaFunction({
       functionName: 'discord-dev-sendMessage',
       body: {
