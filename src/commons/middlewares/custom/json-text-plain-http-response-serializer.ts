@@ -2,7 +2,6 @@ import { MiddlewareObj } from '@middy/core';
 import httpResponseSerializer from '@middy/http-response-serializer';
 
 function jsonTextPlainHttpResponseSerializer(): MiddlewareObj {
-  console.log('jsonTextPlainHttpResponseSerializer');
   return httpResponseSerializer({
     serializers: [
       {

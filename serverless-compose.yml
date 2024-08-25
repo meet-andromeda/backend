@@ -11,3 +11,5 @@ services:
     path: src/services/users
   workflows:
     path: src/services/workflows
+  goplus:
+    path: src/services/goplus

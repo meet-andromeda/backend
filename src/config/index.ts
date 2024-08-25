@@ -32,6 +32,7 @@ const serviceNames = {
   discord: 'discord',
   workflows: 'workflows',
   users: 'users',
+  goplus: 'goplus',
 };
 
 const domain = {
