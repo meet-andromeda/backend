@@ -69,12 +69,12 @@ export const main = middy(async (
     console.log('Malicious: ', checkMaliciousResponse);
 
     // 2: Mint And Airdrop
-    const airdropAmount = Date.now();
+    const airdropAmount = v1.actions[1].params.abiFunctionParameters[1];
     const params2 = {
       ...v1.actions[1].params,
       abiFunctionParameters: [
         txEvent.transactionEvent.userAddress,
-        airdropAmount * 100000,
+        airdropAmount,
       ],
     };
     console.log('Params: ', params2);
