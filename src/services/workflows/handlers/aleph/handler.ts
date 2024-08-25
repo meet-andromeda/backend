@@ -36,6 +36,9 @@ export const main = middy(async (
 
   const { version, transactionHash } = requestBody;
 
+  console.log('Version: ', version);
+  console.log('Hash: ', transactionHash);
+
   if (version === 'v1') {
     // 1: Decode Event
     const params1 = {
@@ -51,7 +54,21 @@ export const main = middy(async (
     });
     console.log('Decoded Event: ', txEvent);
 
-    // 2: Decode Event
+    // 1.5: Check Wallet
+    const params15 = {
+      address: txEvent.transactionEvent.userAddress,
+      networkId: 137,
+    };
+    console.log('Params: ', params15);
+    const checkMaliciousResponse = await invokeLambdaFunction<DecodeEventResponse>({
+      functionName: 'goplus-dev-checkMaliciousness',
+      body: {
+        ...params15,
+      },
+    });
+    console.log('Malicious: ', checkMaliciousResponse);
+
+    // 2: Mint And Airdrop
     const params2 = {
       ...v1.actions[1].params,
       abiFunctionParameters: [
