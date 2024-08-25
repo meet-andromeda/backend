@@ -32,9 +32,6 @@ export const main = middy(async (
 
   const { version, transactionHash } = requestBody;
 
-  console.log('Version: ', version);
-  console.log('Hash: ', transactionHash);
-
   if (version === 'v1') {
     // 1: Decode Event
     const params1 = {

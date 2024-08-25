@@ -31,8 +31,6 @@ export const main = middy(async (
 ): Promise<HandlerResponse> => {
   const bodyRequest = JSON.parse(event.body);
 
-  console.log('Body Request: ', bodyRequest);
-
   const alchemyProvider = new AlchemyProvider(
     137,
     context[envVariablesNames.alchemyApiKeyPolygon],
