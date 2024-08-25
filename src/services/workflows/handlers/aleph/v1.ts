@@ -28,7 +28,7 @@ const v1 = {
       action: 'Facuet',
       params: {
         userAddress: '0x767b881f081e8b7267d9d8a7a0504da638013205',
-        amount: '0.0420',
+        amount: '0.05',
         destinationAddress: '',
       },
     },
