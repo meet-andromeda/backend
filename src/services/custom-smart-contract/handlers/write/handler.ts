@@ -89,17 +89,9 @@ export const main = middy(async (
 
     console.log(executeTransactionResponse);
 
-    const transactionInformation = await circleDeveloperSdk.getTransaction({
-      id: executeTransactionResponse.data.id,
-    });
-
-    console.log(transactionInformation);
-
-    const { txHash } = transactionInformation.data.transaction;
-
     return {
       statusCode: StatusCodes.OK,
-      body: { hash: txHash },
+      body: { transactionId: executeTransactionResponse.data.id },
     };
   } catch (error) {
     console.log('Error: ', error);
