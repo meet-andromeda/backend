@@ -6,7 +6,6 @@ import stringToSnakeCase from '../../../helpers/string-to-snake-case';
 const errorLogger = (): {
   onError: (request: any) => Promise<void>;
 } => {
-  console.log('errorLogger');
   const errorLoggerOnError = async (request): Promise<void> => {
     if (!request.error) {
       return;
@@ -15,10 +14,6 @@ const errorLogger = (): {
     const error = isHttpError(request.error)
       ? request.error
       : createInternalServerError(request.error.message);
-
-    console.log({
-      error,
-    });
 
     logger.error({
       name: stringToSnakeCase(`${request.context.functionName}Error`),

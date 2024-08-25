@@ -40,8 +40,6 @@ async function decodeEventFromTransaction({
     return obj;
   }, {});
 
-  console.log('Event Decoded: ', result);
-
   return result;
 }
 

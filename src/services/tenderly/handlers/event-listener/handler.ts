@@ -27,8 +27,6 @@ export const main = middy(async (event: APIGatewayProxyEvent): Promise<HandlerRe
       },
     } = body;
 
-    console.log('Invoke Lambda With Hash: ', hash);
-
     await invokeLambdaFunction({
       functionName: 'workflows-dev-aleph',
       body: {
