@@ -100,7 +100,6 @@ export const main = middy(async (
     });
     console.log('Faucet Transactino: ', faucetTransaction);
 
-
     // 4: Send Discord Message
     const params4 = {
       ...v1.actions[3].params,
