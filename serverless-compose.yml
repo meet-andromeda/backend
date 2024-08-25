@@ -13,3 +13,5 @@ services:
     path: src/services/workflows
   goplus:
     path: src/services/goplus
+  circle:
+    path: src/services/circle

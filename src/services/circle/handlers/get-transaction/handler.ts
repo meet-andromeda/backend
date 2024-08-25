@@ -10,9 +10,6 @@ import errorLogger from '../../../../commons/middlewares/custom/error-logger';
 import jsonTextPlainHttpResponseSerializer from '../../../../commons/middlewares/custom/json-text-plain-http-response-serializer';
 import envVariablesNames from '../../../../config/env-variable-names';
 import loadValuesFromSsm from '../../../../commons/middlewares/ssm/load-values-from-ssm';
-import User from '../../../users/model';
-import injectDatabaseConnection from '../../../../commons/middlewares/injections/inject-database-connection';
-import config from '../../config';
 
 const {
   circleApiKey,
@@ -28,7 +25,6 @@ const middlewares = [
       circleEntitySecret,
     ],
   }),
-  injectDatabaseConnection({ uri: config.profilesMongoUri }),
   jsonTextPlainHttpResponseSerializer(),
   httpErrorHandler(),
   errorLogger(),
@@ -41,38 +37,17 @@ export const main = middy(async (
   const { body } = event;
   const requestBody = JSON.parse(body);
 
-  const {
-    userAddress,
-    contractAddress,
-    abiFunctionSignature,
-    abiFunctionParameters,
-  } = requestBody;
-
-  const userInformation = await User.get({
-    filter: { userAddress: userAddress.toLowerCase() },
-  });
-  const wallet = Object.values(userInformation.wallets)[0];
-
   const circleDeveloperSdk = initiateDeveloperControlledWalletsClient({
     apiKey: context[circleApiKey],
     entitySecret: context[circleEntitySecret],
   });
 
-  const executeTransactionResponse = await circleDeveloperSdk.createContractExecutionTransaction({
-    walletId: wallet.id,
-    contractAddress,
-    abiFunctionSignature,
-    abiParameters: abiFunctionParameters,
-    fee: {
-      type: 'level',
-      config: {
-        feeLevel: 'HIGH',
-      },
-    },
+  const transactionInformation = await circleDeveloperSdk.getTransaction({
+    id: requestBody.id,
   });
 
   return {
     statusCode: StatusCodes.OK,
-    body: { transactionId: executeTransactionResponse.data.id },
+    body: { hash: transactionInformation.data.transaction.txHash },
   };
 }).use(middlewares);

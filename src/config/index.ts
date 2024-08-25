@@ -33,6 +33,7 @@ const serviceNames = {
   workflows: 'workflows',
   users: 'users',
   goplus: 'goplus',
+  circle: 'circle',
 };
 
 const domain = {
