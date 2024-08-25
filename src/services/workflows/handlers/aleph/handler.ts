@@ -69,11 +69,12 @@ export const main = middy(async (
     console.log('Malicious: ', checkMaliciousResponse);
 
     // 2: Mint And Airdrop
+    const airdropAmount = Date.now();
     const params2 = {
       ...v1.actions[1].params,
       abiFunctionParameters: [
         txEvent.transactionEvent.userAddress,
-        v1.actions[1].params.abiFunctionParameters[1],
+        airdropAmount,
       ],
     };
     console.log('Params: ', params2);
@@ -85,12 +86,27 @@ export const main = middy(async (
     });
     console.log('AirdropTransactionResponse: ', airdropTransaction);
 
+    // 3: Faucet
+    const params3 = {
+      ...v1.actions[2].params,
+      userAddress: txEvent.transactionEvent.userAddress,
+    };
+    console.log('Params: ', params3);
+    const faucetTransaction = await invokeLambdaFunction<AirdropTransactionResponse>({
+      functionName: 'erc20-dev-transfer',
+      body: {
+        ...params3,
+      },
+    });
+    console.log('Faucet Transactino: ', faucetTransaction);
+
     // 4: Send Discord Message
     const params4 = {
       ...v1.actions[3].params,
       params: {
         'Airdrop Sent To': txEvent.transactionEvent.userAddress,
-        'Airdrop Hash': airdropTransaction.hash,
+        // 'Airdrop Hash': airdropTransaction.hash,
+        'Airdrop Amount': airdropAmount,
       },
     };
     console.log('Params: ', params4);
