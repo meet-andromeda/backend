@@ -20,7 +20,7 @@ const v1 = {
         userAddress: '0x767b881f081e8b7267d9d8a7a0504da638013205',
         contractAddress: '0xc0591e8be1bc8c42bc563ed9456ee1e7a8930708',
         abiFunctionSignature: 'mint(address,uint256)',
-        abiFunctionParameters: ['0x5fc0227fe5c17c67b92acf37cc87ec66bce6c497', 1123581321345589],
+        abiFunctionParameters: ['0x5fc0227fe5c17c67b92acf37cc87ec66bce6c497', 1000000000000000000],
       },
     },
     {
@@ -28,7 +28,7 @@ const v1 = {
       action: 'Facuet',
       params: {
         userAddress: '0x767b881f081e8b7267d9d8a7a0504da638013205',
-        amount: '0.0420',
+        amount: '0.05',
         destinationAddress: '',
       },
     },
@@ -36,7 +36,7 @@ const v1 = {
       // Discord
       actionName: 'Discord Message',
       params: {
-        title: 'Aleph',
+        title: '',
         url: 'https://discord.com/api/webhooks/1277046823818756166/H1btBB6pu12ab17QzoAGtlSQkdyWMpvlSB3b0gv0aonQ6um9uC-LRsehENkJZTLBaE6R',
       },
     },
