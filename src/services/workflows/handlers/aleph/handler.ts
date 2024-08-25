@@ -25,6 +25,10 @@ interface DecodeEventResponse {
   }
 }
 
+interface AirdropTransactionResponse {
+  hash: string;
+}
+
 export const main = middy(async (
   event: APIGatewayProxyEvent,
 ): Promise<HandlerResponse> => {
@@ -50,11 +54,29 @@ export const main = middy(async (
     });
     console.log('Decoded Event: ', txEvent);
 
+    // 2: Decode Event
+    const params2 = {
+      ...v1.actions[1].params,
+      abiFunctionParameters: [
+        txEvent.transactionEvent.userAddress,
+        v1.actions[1].params.abiFunctionParameters[1],
+      ],
+    };
+    console.log('Params: ', params2);
+    const airdropTransaction = await invokeLambdaFunction<AirdropTransactionResponse>({
+      functionName: 'custom-smart-contract-dev-write',
+      body: {
+        ...params2,
+      },
+    });
+    console.log('AirdropTransactionResponse: ', airdropTransaction);
+
     // 4: Send Discord Message
     const params4 = {
       ...v1.actions[3].params,
       params: {
         'Airdrop Sent To': txEvent.transactionEvent.userAddress,
+        'Airdrop Hash': airdropTransaction.hash,
       },
     };
     console.log('Params: ', params4);
