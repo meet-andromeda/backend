@@ -21,8 +21,11 @@ const v1 = {
     },
     {
       // Discord
-      title: '',
-      url: 'https://discord.com/api/webhooks/1277046823818756166/H1btBB6pu12ab17QzoAGtlSQkdyWMpvlSB3b0gv0aonQ6um9uC-LRsehENkJZTLBaE6R',
+      actionName: 'Discord Message',
+      params: {
+        title: 'Aleph',
+        url: 'https://discord.com/api/webhooks/1277046823818756166/H1btBB6pu12ab17QzoAGtlSQkdyWMpvlSB3b0gv0aonQ6um9uC-LRsehENkJZTLBaE6R',
+      },
     },
   ],
 };

@@ -22,7 +22,10 @@ const middlewares = [
   addGetCors(),
   doNotWaitForEmptyEventLoop(),
   loadValuesFromSsm({
-    params: [circleApiKey, circleEntitySecret],
+    params: [
+      circleApiKey,
+      circleEntitySecret,
+    ],
   }),
   injectDatabaseConnection({ uri: config.mongoUri }),
   jsonTextPlainHttpResponseSerializer(),
