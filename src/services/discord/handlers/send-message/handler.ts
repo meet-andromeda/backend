@@ -28,6 +28,11 @@ export const main = middy(async (
     url,
   } = requestBody;
 
+  console.log({
+    title,
+    params,
+    url,
+  });
   await sendDiscordMessage({
     title,
     params,
