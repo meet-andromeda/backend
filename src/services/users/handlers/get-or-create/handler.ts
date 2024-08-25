@@ -20,10 +20,10 @@ const {
 
 const middlewares = [
   addGetCors(),
+  doNotWaitForEmptyEventLoop(),
   loadValuesFromSsm({
     params: [circleApiKey, circleEntitySecret],
   }),
-  doNotWaitForEmptyEventLoop(),
   injectDatabaseConnection({ uri: config.mongoUri }),
   jsonTextPlainHttpResponseSerializer(),
   httpErrorHandler(),
