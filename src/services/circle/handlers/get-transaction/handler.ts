@@ -34,8 +34,7 @@ export const main = middy(async (
   event: APIGatewayProxyEvent,
   context: Context,
 ): Promise<HandlerResponse> => {
-  const { body } = event;
-  const requestBody = JSON.parse(body);
+  const { pathParameters } = event;
 
   const circleDeveloperSdk = initiateDeveloperControlledWalletsClient({
     apiKey: context[circleApiKey],
@@ -43,7 +42,7 @@ export const main = middy(async (
   });
 
   const transactionInformation = await circleDeveloperSdk.getTransaction({
-    id: requestBody.id,
+    id: pathParameters.transactionId,
   });
 
   return {
