@@ -25,12 +25,19 @@ interface DecodeEventResponse {
   }
 }
 
+interface AirdropTransactionResponse {
+  hash: string;
+}
+
 export const main = middy(async (
   event: APIGatewayProxyEvent,
 ): Promise<HandlerResponse> => {
   const requestBody = JSON.parse(event.body);
 
   const { version, transactionHash } = requestBody;
+
+  console.log('Version: ', version);
+  console.log('Hash: ', transactionHash);
 
   if (version === 'v1') {
     // 1: Decode Event
@@ -47,11 +54,43 @@ export const main = middy(async (
     });
     console.log('Decoded Event: ', txEvent);
 
+    // 1.5: Check Wallet
+    const params15 = {
+      address: txEvent.transactionEvent.userAddress,
+      networkId: 137,
+    };
+    console.log('Params: ', params15);
+    const checkMaliciousResponse = await invokeLambdaFunction<DecodeEventResponse>({
+      functionName: 'goplus-dev-checkMaliciousness',
+      body: {
+        ...params15,
+      },
+    });
+    console.log('Malicious: ', checkMaliciousResponse);
+
+    // 2: Mint And Airdrop
+    const params2 = {
+      ...v1.actions[1].params,
+      abiFunctionParameters: [
+        txEvent.transactionEvent.userAddress,
+        v1.actions[1].params.abiFunctionParameters[1],
+      ],
+    };
+    console.log('Params: ', params2);
+    const airdropTransaction = await invokeLambdaFunction<AirdropTransactionResponse>({
+      functionName: 'custom-smart-contract-dev-write',
+      body: {
+        ...params2,
+      },
+    });
+    console.log('AirdropTransactionResponse: ', airdropTransaction);
+
     // 4: Send Discord Message
     const params4 = {
       ...v1.actions[3].params,
       params: {
         'Airdrop Sent To': txEvent.transactionEvent.userAddress,
+        'Airdrop Hash': airdropTransaction.hash,
       },
     };
     console.log('Params: ', params4);

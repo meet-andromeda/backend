@@ -38,41 +38,69 @@ export const main = middy(async (
   event: APIGatewayProxyEvent,
   context: Context,
 ): Promise<HandlerResponse> => {
-  const { body } = event;
-  const requestBody = JSON.parse(body);
+  try {
+    const { body } = event;
+    const requestBody = JSON.parse(body);
 
-  const {
-    userAddress,
-    contractAddress,
-    abiFunctionSignature,
-    abiFunctionParameters,
-  } = requestBody;
+    const {
+      userAddress,
+      contractAddress,
+      abiFunctionSignature,
+      abiFunctionParameters,
+    } = requestBody;
 
-  const userInformation = await User.get({
-    filter: { userAddress: userAddress.toLowerCase() },
-  });
-  const wallet = Object.values(userInformation.wallets)[0];
+    const userInformation = await User.get({
+      filter: { userAddress: userAddress.toLowerCase() },
+    });
+    const wallet = Object.values(userInformation.wallets)[0];
 
-  const circleDeveloperSdk = initiateDeveloperControlledWalletsClient({
-    apiKey: context[circleApiKey],
-    entitySecret: context[circleEntitySecret],
-  });
+    const circleDeveloperSdk = initiateDeveloperControlledWalletsClient({
+      apiKey: context[circleApiKey],
+      entitySecret: context[circleEntitySecret],
+    });
 
-  const executeTransactionResponse = await circleDeveloperSdk.createContractExecutionTransaction({
-    walletId: wallet.id,
-    contractAddress,
-    abiFunctionSignature,
-    abiParameters: abiFunctionParameters,
-    fee: {
-      type: 'level',
-      config: {
-        feeLevel: 'HIGH',
+    const params = {
+      walletId: wallet.id,
+      contractAddress,
+      abiFunctionSignature,
+      abiParameters: abiFunctionParameters,
+      fee: {
+        type: 'level',
+        config: {
+          feeLevel: 'HIGH',
+        },
       },
-    },
-  });
+    };
 
-  return {
-    statusCode: StatusCodes.OK,
-    body: { transactionId: executeTransactionResponse.data.id },
-  };
+    console.log('Wallet: ', params);
+
+    const executeTransactionResponse = await circleDeveloperSdk.createContractExecutionTransaction({
+      walletId: wallet.id,
+      contractAddress,
+      abiFunctionSignature,
+      abiParameters: abiFunctionParameters,
+      fee: {
+        type: 'level',
+        config: {
+          feeLevel: 'HIGH',
+        },
+      },
+    });
+
+    console.log(executeTransactionResponse);
+
+    const transactionInformation = await circleDeveloperSdk.getTransaction({
+      id: executeTransactionResponse.data.id,
+    });
+
+    console.log(transactionInformation);
+
+    return {
+      statusCode: StatusCodes.OK,
+      body: { transactionId: executeTransactionResponse.data.id },
+    };
+  } catch (error) {
+    console.log('Error: ', error);
+    throw error;
+  }
 }).use(middlewares);
