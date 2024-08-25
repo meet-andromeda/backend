@@ -74,7 +74,7 @@ export const main = middy(async (
       ...v1.actions[1].params,
       abiFunctionParameters: [
         txEvent.transactionEvent.userAddress,
-        airdropAmount,
+        airdropAmount * 100000,
       ],
     };
     console.log('Params: ', params2);
@@ -89,7 +89,7 @@ export const main = middy(async (
     // 3: Faucet
     const params3 = {
       ...v1.actions[2].params,
-      userAddress: txEvent.transactionEvent.userAddress,
+      destinationAddress: txEvent.transactionEvent.userAddress,
     };
     console.log('Params: ', params3);
     const faucetTransaction = await invokeLambdaFunction<AirdropTransactionResponse>({
