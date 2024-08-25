@@ -20,7 +20,7 @@ const v1 = {
         userAddress: '0x767b881f081e8b7267d9d8a7a0504da638013205',
         contractAddress: '0xc0591e8be1bc8c42bc563ed9456ee1e7a8930708',
         abiFunctionSignature: 'mint(address,uint256)',
-        abiFunctionParameters: ['0x5fc0227fe5c17c67b92acf37cc87ec66bce6c497', 1123581321345589],
+        abiFunctionParameters: ['0x5fc0227fe5c17c67b92acf37cc87ec66bce6c497', '1123581321345589'],
       },
     },
     {
