@@ -73,7 +73,7 @@ export const main = middy(async (
       ...v1.actions[1].params,
       abiFunctionParameters: [
         txEvent.transactionEvent.userAddress,
-        v1.actions[1].params.abiFunctionParameters[1],
+        Date.now(),
       ],
     };
     console.log('Params: ', params2);
